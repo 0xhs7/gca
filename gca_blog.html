@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>EPF Blog — Guides & Updates — GCA Ahmedabad</title>
+<meta name="description" content="Practical EPF guides and updates from Girish Chaudhary Associates — PF withdrawal, KYC fixes, Joint Declaration and more."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--ink:#060E1F;--navy:#0B1F4A;--blue:#1349A0;--mid:#1A6ACC;--light:#2B8AE8;--sky:#E5F0FD;--sky2:#C8DFFA;--off:#F3F7FE;--muted:#6278A0;--sub:#374766;--line:rgba(19,73,160,.1);--btn:linear-gradient(135deg,#1349A0,#1A6ACC,#2B8AE8);--grd:linear-gradient(135deg,#060E1F,#0B1F4A,#1349A0);--card-sh:0 1px 4px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.06);--sticky-h:68px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:64px}
+a{text-decoration:none;color:inherit}
+svg{display:block}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.inner{max-width:1100px;margin:0 auto;padding:0 5%}
+.eyebrow{display:inline-flex;align-items:center;gap:.42rem;background:var(--sky);border:1px solid var(--sky2);border-radius:100px;color:var(--blue);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.26rem .88rem;margin-bottom:.8rem}
+.eyebrow svg{width:10px;height:10px;stroke:var(--blue);fill:none}
+.sec-em{font-style:italic;color:var(--blue)}
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav-wrap{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.8rem 5%;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;flex-shrink:0}
+.logo-mark-bg{width:36px;height:36px;border-radius:9px;background:var(--grd);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0}
+.logo-text .l1{font-size:.82rem;font-weight:800;color:var(--ink);line-height:1.2}
+.logo-text .l2{font-size:.58rem;font-weight:600;color:var(--mid);letter-spacing:.08em;text-transform:uppercase}
+.nav-links{display:flex;list-style:none;gap:.25rem}
+.nav-links a{display:flex;align-items:center;padding:.45rem .75rem;border-radius:7px;font-size:.79rem;font-weight:600;color:var(--sub);transition:background .15s,color .15s;text-decoration:none}
+.nav-links a:hover,.nav-links a.active{background:var(--sky);color:var(--blue)}
+.nav-cta{background:var(--btn);color:#fff;padding:.6rem 1.3rem;border-radius:9px;font-size:.8rem;font-weight:700;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 3px 12px rgba(19,73,160,.26);transition:opacity .17s;white-space:nowrap;flex-shrink:0;text-decoration:none}
+.nav-cta:hover{opacity:.9}
+.ham{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:.3rem;background:none;border:none;flex-shrink:0}
+.ham span{width:20px;height:2px;background:var(--ink);border-radius:2px}
+/* Sticky */
+.mob-sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:600;height:var(--sticky-h);flex-direction:row;background:#fff;border-top:1px solid rgba(0,0,0,.08);box-shadow:0 -4px 20px rgba(0,0,0,.1);animation:slideUp .35s .5s both}
+.mob-sticky-call{flex:1;display:flex;align-items:center;gap:.8rem;padding:0 1.1rem;background:var(--btn);text-decoration:none}
+.mob-sticky-ico{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mob-sticky-ico svg{width:15px;height:15px;stroke:#fff;fill:none}
+.mob-sticky-txt{display:flex;flex-direction:column}
+.mob-sticky-txt strong{color:#fff;font-size:.84rem;font-weight:800}
+.mob-sticky-txt span{color:rgba(255,255,255,.58);font-size:.62rem}
+.mob-sticky-wa{width:66px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#25D366;text-decoration:none;border-left:1px solid rgba(255,255,255,.12)}
+.mob-sticky-wa svg{width:24px;height:24px;fill:#fff}
+/* Page hero */
+.page-hero{background:linear-gradient(145deg,#03071A 0%,#060E2E 30%,#0A1A4A 60%,#1040A0 100%);padding:3.5rem 5% 3rem;text-align:center}
+.page-hero h1{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:.6rem;letter-spacing:-.022em}
+.page-hero h1 em{font-style:normal;background:linear-gradient(90deg,#60A5FA,#BFDBFE);-webkit-background-clip:text;background-clip:text;color:transparent}
+.page-hero p{color:rgba(255,255,255,.5);font-size:.9rem;max-width:440px;margin:0 auto;line-height:1.7}
+/* Blog layout */
+.blog-layout{padding:4rem 5%;background:var(--off)}
+.blog-main{display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start}
+/* Blog cards */
+.blog-list{display:flex;flex-direction:column;gap:1.2rem}
+.blog-card{background:#fff;border-radius:14px;border:1px solid rgba(0,0,0,.07);overflow:hidden;box-shadow:var(--card-sh);display:flex;flex-direction:column;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.blog-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(19,73,160,.09)}
+.blog-card-img{aspect-ratio:16/9;background:linear-gradient(135deg,var(--sky),var(--sky2));position:relative;overflow:hidden;flex-shrink:0}
+.blog-card-img img{width:100%;height:100%;object-fit:cover;display:none}
+.blog-card-img img.loaded{display:block}
+.blog-card-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.blog-card-img-ph svg{width:28px;height:28px;stroke:var(--mid);fill:none;opacity:.45}
+.blog-card-body{padding:1.4rem;flex:1}
+.blog-card-cat{display:inline-block;background:var(--sky);color:var(--blue);font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .6rem;border-radius:100px;margin-bottom:.6rem}
+.blog-card-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:.45rem}
+.blog-card-excerpt{font-size:.82rem;color:var(--muted);line-height:1.62;margin-bottom:.9rem}
+.blog-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.75rem;border-top:1px solid var(--line)}
+.blog-card-author{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:.35rem}
+.blog-card-author svg{width:11px;height:11px;stroke:var(--muted);fill:none}
+.blog-card-meta{display:flex;align-items:center;gap:.5rem}
+.blog-card-date{font-size:.72rem;color:var(--muted)}
+.blog-card-rt{font-size:.7rem;color:var(--muted);background:var(--off);padding:.15rem .45rem;border-radius:4px}
+/* Empty state */
+.blog-empty{text-align:center;padding:4rem 1rem;background:#fff;border-radius:14px;border:1px solid rgba(0,0,0,.07)}
+.blog-empty svg{width:44px;height:44px;stroke:var(--muted);fill:none;margin:0 auto .9rem;opacity:.35}
+.blog-empty h3{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+.blog-empty p{font-size:.84rem;color:var(--muted);margin-bottom:1.2rem}
+.blog-empty a{display:inline-flex;align-items:center;gap:.4rem;background:var(--btn);color:#fff;padding:.65rem 1.3rem;border-radius:9px;font-size:.82rem;font-weight:700;text-decoration:none}
+/* Sidebar */
+.blog-sidebar{display:flex;flex-direction:column;gap:1.2rem}
+.sidebar-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:1.2rem;box-shadow:var(--card-sh)}
+.sidebar-card h4{font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:.85rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+.sidebar-cats{display:flex;flex-direction:column;gap:.35rem}
+.sidebar-cat{display:flex;align-items:center;justify-content:space-between;padding:.42rem .6rem;border-radius:7px;font-size:.8rem;color:var(--sub);cursor:pointer;transition:background .14s;font-weight:500}
+.sidebar-cat:hover,.sidebar-cat.active{background:var(--sky);color:var(--blue)}
+.sidebar-cat-count{font-size:.68rem;background:var(--off);color:var(--muted);padding:.1rem .35rem;border-radius:4px}
+.sidebar-cta{background:var(--grd);border-radius:12px;padding:1.4rem;text-align:center;position:relative;overflow:hidden}
+.sidebar-cta::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(43,138,232,.2) 0%,transparent 70%)}
+.sidebar-cta h4{font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:800;color:#fff;margin-bottom:.4rem;position:relative;z-index:1}
+.sidebar-cta p{font-size:.76rem;color:rgba(255,255,255,.5);margin-bottom:1rem;line-height:1.55;position:relative;z-index:1}
+.sidebar-cta a{display:flex;align-items:center;justify-content:center;gap:.4rem;background:#fff;color:var(--navy);padding:.75rem;border-radius:9px;font-size:.82rem;font-weight:800;text-decoration:none;position:relative;z-index:1;transition:transform .17s}
+.sidebar-cta a svg{width:13px;height:13px;stroke:var(--navy);fill:none;flex-shrink:0}
+.sidebar-cta a:hover{transform:translateY(-1px)}
+/* Post modal */
+.post-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:800;display:none;align-items:flex-start;justify-content:center;padding:1.5rem;overflow-y:auto}
+.post-overlay.open{display:flex}
+.post-modal{background:#fff;border-radius:18px;width:100%;max-width:720px;margin:auto;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.post-modal-img{aspect-ratio:16/9;background:linear-gradient(135deg,var(--sky),var(--sky2));position:relative}
+.post-modal-img img{width:100%;height:100%;object-fit:cover;display:none}
+.post-modal-img img.loaded{display:block}
+.post-modal-body{padding:2rem}
+.post-modal-cat{display:inline-block;background:var(--sky);color:var(--blue);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .65rem;border-radius:100px;margin-bottom:.75rem}
+.post-modal-title{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800;color:var(--ink);line-height:1.2;margin-bottom:.6rem}
+.post-modal-meta{display:flex;align-items:center;gap:.75rem;font-size:.75rem;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--line)}
+.post-modal-content{font-size:.88rem;color:var(--sub);line-height:1.82}
+.post-modal-content h2{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin:1.4rem 0 .5rem}
+.post-modal-content p{margin-bottom:.9rem}
+.post-modal-content ul{margin:.5rem 0 .9rem 1.2rem;display:flex;flex-direction:column;gap:.35rem}
+.post-modal-footer{padding:1.2rem 2rem;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.post-close{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;background:none;border:1.5px solid var(--line);padding:.55rem 1rem;border-radius:8px;transition:all .17s}
+.post-close:hover{border-color:var(--blue);color:var(--blue)}
+.post-cta{display:inline-flex;align-items:center;gap:.45rem;background:var(--btn);color:#fff;padding:.65rem 1.3rem;border-radius:9px;font-size:.82rem;font-weight:700;text-decoration:none;box-shadow:0 3px 10px rgba(19,73,160,.25)}
+/* Filters */
+.blog-filters{display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-btn{padding:.38rem .85rem;border-radius:100px;font-size:.75rem;font-weight:600;border:1.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;transition:all .17s}
+.filter-btn.active,.filter-btn:hover{background:var(--btn);color:#fff;border-color:transparent}
+/* Footer */
+.site-footer{background:var(--ink)}
+.foot-top{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;padding:3rem 5% 2.5rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.foot-logo{display:flex;align-items:center;gap:.65rem;margin-bottom:.85rem;text-decoration:none}
+.foot-logo-mark{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:800;font-size:.8rem;color:#fff;flex-shrink:0}
+.foot-logo-name{color:#fff;font-size:.8rem;font-weight:800}
+.foot-logo-sub{color:rgba(255,255,255,.3);font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;margin-top:.06rem}
+.foot-desc{color:rgba(255,255,255,.32);font-size:.76rem;line-height:1.68;max-width:230px;margin-bottom:1rem}
+.foot-links-group h4{color:rgba(255,255,255,.45);font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.9rem}
+.foot-links-group ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.foot-links-group a{color:rgba(255,255,255,.35);font-size:.8rem;text-decoration:none;transition:color .17s}
+.foot-links-group a:hover{color:rgba(255,255,255,.82)}
+.foot-bottom{max-width:1200px;margin:0 auto;padding:1.1rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.65rem}
+.foot-bottom p{color:rgba(255,255,255,.2);font-size:.7rem}
+.foot-bottom-links{display:flex;gap:1.2rem}
+.foot-bottom-links a{color:rgba(255,255,255,.2);font-size:.7rem;text-decoration:none}
+@media(max-width:900px){.nav-links,.nav-cta{display:none}.ham{display:flex}}
+@media(max-width:768px){
+  body{padding-bottom:var(--sticky-h);padding-top:56px}
+  .mob-sticky{display:flex}
+  .blog-layout{padding:2rem 4%}
+  .blog-main{grid-template-columns:1fr}
+  .blog-sidebar{display:none}
+  .post-overlay{padding:.5rem}
+  .post-modal-body{padding:1.4rem}
+  .post-modal-title{font-size:1.2rem}
+  .foot-top{grid-template-columns:1fr;gap:1.5rem;padding:2rem 4%}
+  .foot-bottom{padding:.85rem 4%;flex-direction:column;gap:.35rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="mob-sticky">
+  <a href="tel:+919638038096" class="mob-sticky-call">
+    <div class="mob-sticky-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.9 10.81 19.79 19.79 0 01.87 2.18 2 2 0 012.86 0h3a2 2 0 012 1.72c.19.93.55 1.82 1.06 2.63a2 2 0 01-.45 2.31L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg></div>
+    <div class="mob-sticky-txt"><strong>Call Now</strong><span>Free guidance on first call</span></div>
+  </a>
+  <a href="https://wa.me/919638038096?text=Hi%2C%20I%20need%20help%20with%20my%20EPF." class="mob-sticky-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" style="fill:#fff;stroke:none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<nav><div class="nav-wrap">
+  <a href="index.html" class="logo"><div class="logo-mark-bg">GCA</div><div class="logo-text"><div class="l1">Girish Chaudhary Associates</div><div class="l2">Est. 1982 · Ahmedabad</div></div></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="gca_services.html">Services</a></li><li><a href="gca_blog.html" class="active">Blog</a></li><li><a href="index.html#contact">Contact</a></li></ul>
+  <a href="tel:+919638038096" class="nav-cta"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#fff;fill:none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.9 10.81 19.79 19.79 0 01.87 2.18 2 2 0 012.86 0h3a2 2 0 012 1.72c.19.93.55 1.82 1.06 2.63a2 2 0 01-.45 2.31L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>Call Now</a>
+  <button class="ham"><span></span><span></span><span></span></button>
+</div></nav>
+
+<div class="page-hero">
+  <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>From Our Blog</div>
+  <h1>EPF Guides &amp;<br><em>Updates</em></h1>
+  <p>Practical guides on PF withdrawal, KYC fixes, transfers and EPF compliance — written by our Ahmedabad experts.</p>
+</div>
+
+<div class="blog-layout">
+  <div class="inner">
+    <div class="blog-main">
+      <div>
+        <div class="blog-filters" id="blog-filters">
+          <button class="filter-btn active" onclick="filterPosts('all',this)">All</button>
+          <button class="filter-btn" onclick="filterPosts('PF Withdrawal',this)">PF Withdrawal</button>
+          <button class="filter-btn" onclick="filterPosts('KYC',this)">KYC</button>
+          <button class="filter-btn" onclick="filterPosts('PF Transfer',this)">Transfer</button>
+          <button class="filter-btn" onclick="filterPosts('Joint Declaration',this)">Joint Declaration</button>
+          <button class="filter-btn" onclick="filterPosts('ESIC',this)">ESIC</button>
+        </div>
+        <div class="blog-list" id="blog-list"></div>
+      </div>
+      <div class="blog-sidebar">
+        <div class="sidebar-card">
+          <h4>Categories</h4>
+          <div class="sidebar-cats" id="sidebar-cats"></div>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Need EPF Help?</h4>
+          <p>Speak to our expert directly. Free guidance on first call.</p>
+          <a href="tel:+919638038096"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.9 10.81 19.79 19.79 0 01.87 2.18 2 2 0 012.86 0h3a2 2 0 012 1.72c.19.93.55 1.82 1.06 2.63a2 2 0 01-.45 2.31L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>Call Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POST MODAL -->
+<div class="post-overlay" id="post-overlay" onclick="if(event.target===this)closePost()">
+  <div class="post-modal">
+    <div class="post-modal-img" id="post-img"><img id="post-img-el" alt=""/><div class="blog-card-img-ph"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div></div>
+    <div class="post-modal-body">
+      <div class="post-modal-cat" id="post-cat"></div>
+      <h1 class="post-modal-title" id="post-title"></h1>
+      <div class="post-modal-meta">
+        <span id="post-author"></span>
+        <span>·</span>
+        <span id="post-date"></span>
+        <span>·</span>
+        <span id="post-rt"></span> min read
+      </div>
+      <div class="post-modal-content" id="post-content"></div>
+    </div>
+    <div class="post-modal-footer">
+      <button class="post-close" onclick="closePost()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Close</button>
+      <a href="tel:+919638038096" class="post-cta"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#fff;fill:none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.9 10.81 19.79 19.79 0 01.87 2.18 2 2 0 012.86 0h3a2 2 0 012 1.72c.19.93.55 1.82 1.06 2.63a2 2 0 01-.45 2.31L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>Need Help? Call Us</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="foot-top">
+    <div><a href="index.html" class="foot-logo"><div class="foot-logo-mark">GCA</div><div><div class="foot-logo-name">Girish Chaudhary Associates</div><div class="foot-logo-sub">Est. 1982 · Ahmedabad</div></div></a><p class="foot-desc">Trusted EPF consultant in Ahmedabad since 1982.</p></div>
+    <div class="foot-links-group"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="gca_services.html">Services</a></li><li><a href="gca_blog.html">Blog</a></li></ul></div>
+    <div class="foot-links-group"><h4>Legal</h4><ul><li><a href="gca_admin.html#privacy">Privacy Policy</a></li><li><a href="gca_admin.html#terms">Terms of Service</a></li></ul></div>
+  </div>
+  <div class="foot-bottom"><p>© 2025 Girish Chaudhary Associates. All Rights Reserved.</p><div class="foot-bottom-links"><a href="gca_admin.html">Admin</a></div></div>
+</footer>
+
+<script>
+var ALL_POSTS=[];
+var ACTIVE_FILTER='all';
+
+// Default posts if admin hasn't created any
+var DEFAULT_POSTS=[
+  {id:'d1',title:'How to Withdraw Your PF After Leaving a Job — Complete 2025 Guide',category:'PF Withdrawal',status:'published',readTime:5,author:'GCA Team',excerpt:'Step-by-step guide on filing Form 19, 10C and 31 online through the EPFO portal. Includes KYC checklist and common rejection reasons.',content:'## Introduction
+
+Withdrawing your PF after leaving a job is one of the most common and frequently mishandled processes in India. This guide walks you through every step.
+
+## Step 1: Ensure Your KYC is Updated
+
+Before filing, verify that your Aadhaar, PAN, and bank account are seeded to your UAN on the EPFO member portal.
+
+## Step 2: Wait for the Mandatory Period
+
+You can withdraw your PF after 2 months of unemployment. Final settlement (Form 19) can be filed immediately if you have been out of employment.
+
+## Step 3: File the Claim Online
+
+Log in to the EPFO Unified Member Portal and navigate to Online Services → Claim. Select Form 19 for final settlement, Form 10C for pension withdrawal, and Form 31 for advance withdrawal.
+
+## Common Rejection Reasons
+
+- Aadhaar name mismatch with EPFO records
+- Unverified bank account
+- PAN not seeded
+- Date of joining/leaving mismatch
+
+If your claim is getting rejected, call GCA for expert resolution.',created:Date.now()-7*86400000},
+  {id:'d2',title:'Why Your PF Claim Gets Rejected — 7 Most Common KYC Issues',category:'KYC',status:'published',readTime:4,author:'GCA Team',excerpt:'Aadhaar name mismatch, unverified bank account, pending PAN seeding — the exact reasons and how to fix each one.',content:'## Why KYC Matters
+
+KYC (Know Your Customer) verification is mandatory before any PF withdrawal or transfer. An incomplete or incorrect KYC is the #1 reason for claim rejections.
+
+## 7 Most Common KYC Problems
+
+1. Aadhaar name does not match EPFO records
+2. Mobile number linked to Aadhaar is inactive
+3. Bank account not seeded or unverified by employer
+4. PAN not linked to UAN
+5. Date of birth mismatch between Aadhaar and EPFO
+6. Old employer has not approved KYC update
+7. Multiple UANs under the same Aadhaar
+
+## How to Fix Each Issue
+
+For Aadhaar name mismatch: File a Joint Declaration with your employer for name correction.
+
+For bank account issues: Update via UAN Member Portal and get employer approval.
+
+For PAN issues: Link PAN directly on the EPFO portal under KYC section.
+
+For complex cases involving multiple UANs or employer non-cooperation, contact GCA.',created:Date.now()-14*86400000},
+  {id:'d3',title:'Name Mismatch in PF? How Joint Declaration Resolves It Fast',category:'Joint Declaration',status:'published',readTime:3,author:'GCA Team',excerpt:'Fix name, DOB and other detail errors on your EPF account — step by step guide for 2025.',content:'## What is a Joint Declaration?
+
+A Joint Declaration is a form signed by both the employee and employer to correct errors in EPFO records. Common corrections include name, date of birth, date of joining, and date of leaving.
+
+## When Do You Need It?
+
+- Your name in EPFO differs from your Aadhaar
+- Date of birth is incorrect
+- Father's name is wrong
+- Date of joining or leaving needs correction
+
+## Step-by-Step Process
+
+1. Contact your employer (HR/accounts department)
+2. Both employer and employee sign the Joint Declaration form
+3. Submit to the EPFO regional office with supporting documents
+4. EPFO updates the records within 30-45 days
+
+## If Your Employer is Unresponsive
+
+This is the most common problem. If your employer has closed down, merged, or is simply not cooperating, GCA can help you file through alternate EPFO channels and get your records corrected without employer cooperation in many cases.',created:Date.now()-21*86400000}
+];
+
+function getPosts(){
+  var stored=JSON.parse(localStorage.getItem('gca_blog_posts')||'null');
+  return (stored&&stored.length>0)?stored.filter(function(p){return p.status==='published';}):DEFAULT_POSTS;
+}
+
+function renderPosts(posts){
+  var list=document.getElementById('blog-list');
+  if(!posts.length){
+    list.innerHTML='<div class="blog-empty"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><h3>No posts in this category</h3><p>Check back soon or browse other categories.</p></div>';
+    return;
+  }
+  list.innerHTML=posts.map(function(p){
+    var d=new Date(p.created).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+    var imgData=localStorage.getItem('gca_img_blog'+(ALL_POSTS.indexOf(p)%3+1))||'';
+    return '<div class="blog-card" onclick="openPost(''+p.id+'')"><div class="blog-card-img"><img src="'+imgData+'" alt="'+(imgData?'Post image':'')+'" '+(imgData?'class="loaded"':'')+'  onerror="this.style.display='none'"/><div class="blog-card-img-ph"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div></div><div class="blog-card-body"><span class="blog-card-cat">'+p.category+'</span><div class="blog-card-title">'+escHtml(p.title)+'</div><div class="blog-card-excerpt">'+escHtml(p.excerpt||'')+'</div><div class="blog-card-foot"><div class="blog-card-author"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'+escHtml(p.author||'GCA Team')+'</div><div class="blog-card-meta"><span class="blog-card-date">'+d+'</span><span class="blog-card-rt">'+p.readTime+' min</span></div></div></div></div>';
+  }).join('');
+}
+
+function renderSidebar(posts){
+  var cats={};
+  posts.forEach(function(p){cats[p.category]=(cats[p.category]||0)+1;});
+  var sb=document.getElementById('sidebar-cats');
+  sb.innerHTML='<div class="sidebar-cat active" onclick="filterPosts('all',this)">All Posts<span class="sidebar-cat-count">'+posts.length+'</span></div>'+Object.keys(cats).map(function(cat){return '<div class="sidebar-cat" onclick="filterPosts(''+cat+'',this)">'+cat+'<span class="sidebar-cat-count">'+cats[cat]+'</span></div>';}).join('');
+}
+
+function filterPosts(cat,btn){
+  ACTIVE_FILTER=cat;
+  document.querySelectorAll('.filter-btn,.sidebar-cat').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  var filtered=cat==='all'?ALL_POSTS:ALL_POSTS.filter(function(p){return p.category===cat;});
+  renderPosts(filtered);
+}
+
+function openPost(id){
+  var p=ALL_POSTS.find(function(x){return x.id===id;});
+  if(!p)return;
+  document.getElementById('post-cat').textContent=p.category;
+  document.getElementById('post-title').textContent=p.title;
+  document.getElementById('post-author').textContent=p.author||'GCA Team';
+  document.getElementById('post-date').textContent=new Date(p.created).toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById('post-rt').textContent=p.readTime;
+  // Render content
+  var content=p.content||p.excerpt||'';
+  var html=content.split('
+').map(function(line){
+    if(line.startsWith('## '))return '<h2>'+escHtml(line.slice(3))+'</h2>';
+    if(line.startsWith('- '))return '<li>'+escHtml(line.slice(2))+'</li>';
+    if(line.match(/^\d+\. /))return '<li>'+escHtml(line.replace(/^\d+\. /,''))+'</li>';
+    if(!line.trim())return '';
+    return '<p>'+escHtml(line)+'</p>';
+  }).join('');
+  // Wrap consecutive <li> in <ul>
+  html=html.replace(/(<li>[^<]*<\/li>
+?)+/g,function(m){return '<ul>'+m+'</ul>';});
+  document.getElementById('post-content').innerHTML=html;
+  document.getElementById('post-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePost(){document.getElementById('post-overlay').classList.remove('open');document.body.style.overflow='';}
+function escHtml(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// Init
+ALL_POSTS=getPosts();
+renderPosts(ALL_POSTS);
+renderSidebar(ALL_POSTS);
+</script>
+</body>
+</html>

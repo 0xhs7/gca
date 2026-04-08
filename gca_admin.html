@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GCA Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--ink:#060E1F;--navy:#0B1F4A;--blue:#1349A0;--mid:#1A6ACC;--light:#2B8AE8;--sky:#E5F0FD;--sky2:#C8DFFA;--off:#F3F7FE;--muted:#6278A0;--sub:#374766;--line:rgba(19,73,160,.1);--btn:linear-gradient(135deg,#1349A0,#1A6ACC,#2B8AE8);--grd:linear-gradient(135deg,#060E1F,#0B1F4A,#1349A0);--card-sh:0 1px 4px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.06);--green:#10B981;--red:#EF4444;--amber:#F59E0B;--sidebar:240px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#F8FAFC;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex}
+a{text-decoration:none;color:inherit}
+svg{display:block}
+button{cursor:pointer;font-family:'DM Sans',sans-serif}
+input,textarea,select{font-family:'DM Sans',sans-serif}
+/* Login Screen */
+#login-screen{position:fixed;inset:0;background:var(--grd);display:flex;align-items:center;justify-content:center;z-index:9999}
+.login-box{background:#fff;border-radius:20px;padding:2.5rem;width:340px;box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.login-logo{display:flex;align-items:center;gap:.7rem;margin-bottom:1.8rem}
+.login-logo-mark{width:40px;height:40px;border-radius:10px;background:var(--grd);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:.9rem;color:#fff}
+.login-logo h1{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:800;color:var(--ink)}
+.login-logo p{font-size:.65rem;color:var(--muted);margin-top:.05rem}
+.login-label{display:block;font-size:.72rem;font-weight:700;color:var(--sub);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem}
+.login-input{width:100%;padding:.75rem .9rem;border:1.5px solid var(--line);border-radius:10px;font-size:.88rem;color:var(--ink);background:#fff;margin-bottom:1rem;transition:border-color .17s;outline:none}
+.login-input:focus{border-color:var(--blue);background:var(--sky)}
+.login-btn{width:100%;padding:.85rem;background:var(--btn);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;margin-top:.5rem;transition:opacity .17s;box-shadow:0 4px 14px rgba(19,73,160,.3)}
+.login-btn:hover{opacity:.9}
+.login-error{color:var(--red);font-size:.78rem;margin-top:.5rem;display:none;text-align:center}
+/* Sidebar */
+.sidebar{width:var(--sidebar);min-height:100vh;background:var(--ink);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.sb-header{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-logo{display:flex;align-items:center;gap:.65rem}
+.sb-logo-mark{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:.78rem;color:#fff;flex-shrink:0}
+.sb-logo-name{color:#fff;font-size:.78rem;font-weight:700;line-height:1.2}
+.sb-logo-sub{color:rgba(255,255,255,.35);font-size:.58rem;margin-top:.05rem}
+.sb-nav{flex:1;padding:1rem 0;overflow-y:auto}
+.sb-section-lbl{font-size:.58rem;font-weight:800;color:rgba(255,255,255,.28);letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.2rem .35rem}
+.sb-item{display:flex;align-items:center;gap:.65rem;padding:.6rem 1.2rem;color:rgba(255,255,255,.5);font-size:.8rem;font-weight:600;cursor:pointer;transition:background .15s,color .15s;border:none;background:none;width:100%;text-align:left;border-radius:0}
+.sb-item svg{width:15px;height:15px;stroke:currentColor;fill:none;flex-shrink:0}
+.sb-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.85)}
+.sb-item.active{background:rgba(19,73,160,.4);color:#fff;border-right:2px solid var(--light)}
+.sb-footer{padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,.07)}
+.sb-logout{display:flex;align-items:center;gap:.6rem;color:rgba(255,255,255,.38);font-size:.78rem;cursor:pointer;background:none;border:none;width:100%;transition:color .15s}
+.sb-logout svg{width:14px;height:14px;stroke:currentColor;fill:none}
+.sb-logout:hover{color:var(--red)}
+/* Main area */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:#fff;border-bottom:1px solid var(--line);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:800;color:var(--ink)}
+.topbar-sub{font-size:.72rem;color:var(--muted);margin-top:.06rem}
+.topbar-actions{display:flex;align-items:center;gap:.65rem}
+.btn-primary{display:inline-flex;align-items:center;gap:.4rem;background:var(--btn);color:#fff;padding:.6rem 1.2rem;border-radius:9px;font-size:.8rem;font-weight:700;border:none;cursor:pointer;transition:opacity .17s;white-space:nowrap;box-shadow:0 3px 10px rgba(19,73,160,.25)}
+.btn-primary svg{width:13px;height:13px;stroke:#fff;fill:none;flex-shrink:0}
+.btn-primary:hover{opacity:.9}
+.btn-outline{display:inline-flex;align-items:center;gap:.4rem;background:#fff;color:var(--sub);padding:.6rem 1.2rem;border-radius:9px;font-size:.8rem;font-weight:600;border:1.5px solid var(--line);cursor:pointer;transition:border-color .17s,background .17s;white-space:nowrap}
+.btn-outline svg{width:13px;height:13px;stroke:currentColor;fill:none;flex-shrink:0}
+.btn-outline:hover{border-color:var(--sky2);background:var(--sky);color:var(--blue)}
+.btn-danger{display:inline-flex;align-items:center;gap:.4rem;background:#fff;color:var(--red);padding:.55rem 1rem;border-radius:8px;font-size:.78rem;font-weight:600;border:1.5px solid rgba(239,68,68,.2);cursor:pointer;transition:all .17s}
+.btn-danger svg{width:12px;height:12px;stroke:currentColor;fill:none}
+.btn-danger:hover{background:#FEF2F2;border-color:var(--red)}
+.content{padding:1.8rem 2rem;flex:1}
+/* Cards */
+.page-section{display:none}
+.page-section.active{display:block}
+.card{background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:var(--card-sh);overflow:hidden}
+.card-header{padding:1.1rem 1.4rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.card-title{font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;color:var(--ink)}
+.card-sub{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.card-body{padding:1.4rem}
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem;box-shadow:var(--card-sh)}
+.stat-card-label{font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.stat-card-num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:800;color:var(--ink);line-height:1}
+.stat-card-num span{font-size:1rem;color:var(--muted);font-weight:500}
+/* Table */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:.67rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;padding:.7rem .9rem;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:.75rem .9rem;border-bottom:1px solid rgba(0,0,0,.05);font-size:.8rem;color:var(--sub);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--off)}
+.badge{display:inline-flex;align-items:center;padding:.18rem .55rem;border-radius:100px;font-size:.62rem;font-weight:700;letter-spacing:.04em}
+.badge-pub{background:#D1FAE5;color:#065F46}
+.badge-draft{background:#FEF3C7;color:#92400E}
+.badge-hidden{background:#F3F4F6;color:#6B7280}
+/* Form elements */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-full{margin-bottom:1rem}
+.form-label{display:block;font-size:.72rem;font-weight:700;color:var(--sub);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem}
+.form-input{width:100%;padding:.72rem .9rem;border:1.5px solid var(--line);border-radius:10px;font-size:.84rem;color:var(--ink);background:#fff;transition:border-color .17s;outline:none;resize:vertical}
+.form-input:focus{border-color:var(--blue);background:var(--sky)}
+.form-input[type=file]{padding:.5rem .9rem;cursor:pointer}
+.form-select{width:100%;padding:.72rem .9rem;border:1.5px solid var(--line);border-radius:10px;font-size:.84rem;color:var(--ink);background:#fff;cursor:pointer;outline:none}
+.form-hint{font-size:.7rem;color:var(--muted);margin-top:.3rem}
+.form-section{margin-bottom:1.6rem;padding-bottom:1.6rem;border-bottom:1px solid var(--line)}
+.form-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.form-section-title{font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:.9rem}
+/* Image slot cards */
+.img-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.img-slot{background:var(--off);border:2px dashed var(--line);border-radius:12px;padding:1.2rem;text-align:center;transition:border-color .17s}
+.img-slot:hover{border-color:var(--sky2)}
+.img-slot-preview{width:100%;aspect-ratio:16/9;border-radius:8px;background:var(--sky);margin-bottom:.75rem;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.img-slot-preview img{width:100%;height:100%;object-fit:cover;display:none}
+.img-slot-preview img.loaded{display:block}
+.img-slot-preview-ico{position:absolute}
+.img-slot-preview-ico svg{width:28px;height:28px;stroke:var(--mid);fill:none;opacity:.5}
+.img-slot-name{font-size:.8rem;font-weight:700;color:var(--ink);margin-bottom:.2rem}
+.img-slot-desc{font-size:.69rem;color:var(--muted);margin-bottom:.75rem;line-height:1.45}
+.img-slot input[type=file]{display:none}
+.img-slot-btn{display:inline-flex;align-items:center;gap:.38rem;padding:.5rem .9rem;border:1.5px solid var(--line);border-radius:8px;font-size:.74rem;font-weight:600;color:var(--sub);cursor:pointer;background:#fff;transition:all .17s}
+.img-slot-btn svg{width:12px;height:12px;stroke:currentColor;fill:none}
+.img-slot-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--sky)}
+/* Toast */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--ink);color:#fff;padding:.75rem 1.2rem;border-radius:10px;font-size:.82rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:9999;display:none;align-items:center;gap:.5rem;animation:fadeUp .3s}
+.toast.show{display:flex}
+.toast.success{background:var(--green)}
+.toast.error{background:var(--red)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* Rich text areas */
+.rich-area{width:100%;min-height:180px;padding:.75rem .9rem;border:1.5px solid var(--line);border-radius:10px;font-size:.84rem;color:var(--ink);background:#fff;resize:vertical;outline:none;line-height:1.7;font-family:'DM Sans',sans-serif}
+.rich-area:focus{border-color:var(--blue);background:var(--sky)}
+/* Empty state */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-state svg{width:40px;height:40px;stroke:var(--muted);fill:none;margin:0 auto .8rem;opacity:.4}
+.empty-state p{font-size:.84rem}
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:800;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.2)}
+.modal-header{padding:1.2rem 1.4rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
+.modal-title{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink)}
+.modal-close{width:30px;height:30px;border-radius:7px;background:var(--off);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+.modal-close svg{width:14px;height:14px;stroke:var(--ink);fill:none}
+.modal-close:hover{background:#E5E7EB}
+.modal-body{padding:1.4rem}
+.modal-footer{padding:1rem 1.4rem;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:.65rem;background:#fff;position:sticky;bottom:0}
+/* Switch toggle */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--line)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-lbl{font-size:.82rem;font-weight:600;color:var(--ink)}
+.toggle-desc{font-size:.7rem;color:var(--muted);margin-top:.06rem}
+.switch{position:relative;width:40px;height:22px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#CBD5E1;border-radius:22px;transition:.25s;cursor:pointer}
+.slider::before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
+.switch input:checked+.slider{background:var(--blue)}
+.switch input:checked+.slider::before{transform:translateX(18px)}
+@media(max-width:900px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .stats-row{grid-template-columns:1fr 1fr;gap:.75rem}
+  .img-slots{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-mark">GCA</div>
+      <div><h1>Admin Panel</h1><p>Girish Chaudhary Associates</p></div>
+    </div>
+    <label class="login-label">Password</label>
+    <input type="password" id="login-pass" class="login-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="login-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sb-header">
+    <a href="index.html" class="sb-logo" style="text-decoration:none;display:flex;align-items:center;gap:.65rem">
+      <div class="sb-logo-mark">GCA</div>
+      <div><div class="sb-logo-name">Admin Panel</div><div class="sb-logo-sub">Girish Chaudhary Associates</div></div>
+    </a>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-section-lbl">Dashboard</div>
+    <button class="sb-item active" onclick="showPage('dashboard',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Overview
+    </button>
+    <div class="sb-section-lbl">Content</div>
+    <button class="sb-item" onclick="showPage('blogs',this)">
+      <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Blog Posts
+    </button>
+    <button class="sb-item" onclick="showPage('images',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Site Images
+    </button>
+    <div class="sb-section-lbl">Legal</div>
+    <button class="sb-item" onclick="showPage('privacy',this)">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Privacy Policy
+    </button>
+    <button class="sb-item" onclick="showPage('terms',this)">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Terms of Service
+    </button>
+    <div class="sb-section-lbl">Settings</div>
+    <button class="sb-item" onclick="showPage('settings',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
+    </button>
+  </nav>
+  <div class="sb-footer">
+    <button class="sb-item" onclick="showPage('apply',this)" style="color:rgba(255,255,255,.7);background:rgba(19,73,160,.3);border-radius:7px;margin:0 .5rem .5rem;width:calc(100% - 1rem)">
+      <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none"><polyline points="20 6 9 17 4 12"/><circle cx="12" cy="12" r="10" stroke-width="0"/></svg>Apply to Website
+    </button>
+    <button class="sb-logout" onclick="doLogout()">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sign Out
+    </button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main-area">
+  <div class="topbar">
+    <div><div class="topbar-title" id="page-title">Dashboard</div><div class="topbar-sub" id="page-sub">Welcome back, Admin</div></div>
+    <div class="topbar-actions" id="topbar-actions"></div>
+  </div>
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="page-section active" id="sec-dashboard">
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-card-label">Blog Posts</div><div class="stat-card-num" id="dash-blogs">0</div></div>
+        <div class="stat-card"><div class="stat-card-label">Published</div><div class="stat-card-num" id="dash-pub">0</div></div>
+        <div class="stat-card"><div class="stat-card-label">Drafts</div><div class="stat-card-num" id="dash-draft">0</div></div>
+        <div class="stat-card"><div class="stat-card-label">Site Images</div><div class="stat-card-num">7</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Recent Blog Posts</div><div class="card-sub">Last 5 posts</div></div><button class="btn-outline" onclick="showPage('blogs',document.querySelector('.sb-item:nth-child(5)'))"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>View All</button></div>
+        <div class="card-body"><div class="table-wrap"><table id="dash-table"><thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th></tr></thead><tbody id="dash-tbody"><tr><td colspan="4"><div class="empty-state"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><p>No posts yet. Create your first blog post.</p></div></td></tr></tbody></table></div></div>
+      </div>
+    </div>
+
+    <!-- BLOGS -->
+    <div class="page-section" id="sec-blogs">
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title">All Blog Posts</div><div class="card-sub">Manage your website blog content</div></div>
+          <button class="btn-primary" onclick="openBlogModal()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Post</button>
+        </div>
+        <div class="card-body">
+          <div class="table-wrap"><table><thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Read Time</th><th>Date</th><th>Actions</th></tr></thead><tbody id="blog-tbody"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGES -->
+    <div class="page-section" id="sec-images">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-header"><div><div class="card-title">Site Images</div><div class="card-sub">Update images shown on the website. Changes are saved locally and reflected on homepage.</div></div></div>
+        <div class="card-body">
+          <div class="img-slots">
+            <div class="img-slot">
+              <div class="img-slot-preview" id="prev-hero"><div class="img-slot-preview-ico"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><img id="img-hero" alt="Hero"/></div>
+              <div class="img-slot-name">Hero Photo</div>
+              <div class="img-slot-desc">Main hero section photo (portrait, 3:4). File: hero-photo.jpg</div>
+              <label class="img-slot-btn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Image<input type="file" accept="image/*" onchange="imgUpload(this,'hero')"/></label>
+            </div>
+            <div class="img-slot">
+              <div class="img-slot-preview" id="prev-about"><div class="img-slot-preview-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><img id="img-about" alt="About"/></div>
+              <div class="img-slot-name">About Section</div>
+              <div class="img-slot-desc">Office or team photo (landscape, 4:3). File: about-photo.jpg</div>
+              <label class="img-slot-btn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Image<input type="file" accept="image/*" onchange="imgUpload(this,'about')"/></label>
+            </div>
+            <div class="img-slot">
+              <div class="img-slot-preview" id="prev-blog1"><div class="img-slot-preview-ico"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><img id="img-blog1" alt="Blog 1"/></div>
+              <div class="img-slot-name">Blog Post 1 Image</div>
+              <div class="img-slot-desc">Featured image for PF Withdrawal guide. File: blog-1.jpg</div>
+              <label class="img-slot-btn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Image<input type="file" accept="image/*" onchange="imgUpload(this,'blog1')"/></label>
+            </div>
+            <div class="img-slot">
+              <div class="img-slot-preview" id="prev-blog2"><div class="img-slot-preview-ico"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><img id="img-blog2" alt="Blog 2"/></div>
+              <div class="img-slot-name">Blog Post 2 Image</div>
+              <div class="img-slot-desc">Featured image for KYC issues guide. File: blog-2.jpg</div>
+              <label class="img-slot-btn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Image<input type="file" accept="image/*" onchange="imgUpload(this,'blog2')"/></label>
+            </div>
+            <div class="img-slot">
+              <div class="img-slot-preview" id="prev-blog3"><div class="img-slot-preview-ico"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><img id="img-blog3" alt="Blog 3"/></div>
+              <div class="img-slot-name">Blog Post 3 Image</div>
+              <div class="img-slot-desc">Featured image for Joint Declaration guide. File: blog-3.jpg</div>
+              <label class="img-slot-btn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Image<input type="file" accept="image/*" onchange="imgUpload(this,'blog3')"/></label>
+            </div>
+            <div class="img-slot">
+              <div class="img-slot-preview" id="prev-og"><div class="img-slot-preview-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><img id="img-og" alt="OG"/></div>
+              <div class="img-slot-name">OG / Social Share Image</div>
+              <div class="img-slot-desc">Used when shared on WhatsApp/social (1200×630). File: og-image.jpg</div>
+              <label class="img-slot-btn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Image<input type="file" accept="image/*" onchange="imgUpload(this,'og')"/></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:.75rem;color:var(--muted);text-align:center">Images are stored as base64 in localStorage and shown as preview. To make them live on the website, download each image and place it in the same folder as the HTML file with the filename shown above.</p>
+    </div>
+
+    <!-- PRIVACY -->
+    <div class="page-section" id="sec-privacy">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Privacy Policy</div><div class="card-sub">Edit the privacy policy displayed on your website</div></div><button class="btn-primary" onclick="savePolicy('privacy')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Save Changes</button></div>
+        <div class="card-body">
+          <div class="form-full"><label class="form-label">Last Updated Date</label><input type="date" id="privacy-date" class="form-input"/></div>
+          <div class="form-full"><label class="form-label">Privacy Policy Content</label><textarea id="privacy-content" class="rich-area" rows="20" placeholder="Enter your privacy policy content here..."></textarea><div class="form-hint">Write in plain text. Use blank lines to separate paragraphs. Start a line with ## for a heading.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERMS -->
+    <div class="page-section" id="sec-terms">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Terms of Service</div><div class="card-sub">Edit the terms and conditions displayed on your website</div></div><button class="btn-primary" onclick="savePolicy('terms')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Save Changes</button></div>
+        <div class="card-body">
+          <div class="form-full"><label class="form-label">Last Updated Date</label><input type="date" id="terms-date" class="form-input"/></div>
+          <div class="form-full"><label class="form-label">Terms of Service Content</label><textarea id="terms-content" class="rich-area" rows="20" placeholder="Enter your terms of service content here..."></textarea><div class="form-hint">Write in plain text. Use blank lines to separate paragraphs. Start a line with ## for a heading.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLY -->
+    <div class="page-section" id="sec-apply">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-header">
+          <div><div class="card-title">Apply Changes to Website</div><div class="card-sub">Push your admin changes (blogs, policies, images) live to the website with one click</div></div>
+          <button class="btn-primary" onclick="applyAllChanges()">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#fff;fill:none"><polyline points="20 6 9 17 4 12"/></svg>
+            Apply All Changes
+          </button>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">
+            <div class="stat-card">
+              <div class="stat-card-label">Blog Posts Ready</div>
+              <div class="stat-card-num" id="apply-blogs-count">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-label">Images Uploaded</div>
+              <div class="stat-card-num" id="apply-imgs-count">—</div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">What "Apply Changes" Does</div>
+            <div style="font-size:.82rem;color:var(--sub);line-height:1.8;display:flex;flex-direction:column;gap:.4rem">
+              <div style="display:flex;gap:.6rem;align-items:flex-start"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--green);fill:none;flex-shrink:0;margin-top:.1rem"><polyline points="20 6 9 17 4 12"/></svg><span>Saves all blog posts to <code>localStorage</code> — they appear instantly on the homepage and blog page</span></div>
+              <div style="display:flex;gap:.6rem;align-items:flex-start"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--green);fill:none;flex-shrink:0;margin-top:.1rem"><polyline points="20 6 9 17 4 12"/></svg><span>Stores Privacy Policy and Terms of Service — accessible from any page linking to them</span></div>
+              <div style="display:flex;gap:.6rem;align-items:flex-start"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--green);fill:none;flex-shrink:0;margin-top:.1rem"><polyline points="20 6 9 17 4 12"/></svg><span>Previews uploaded images — to make images permanent, download them and save with the filename shown on the Images tab</span></div>
+              <div style="display:flex;gap:.6rem;align-items:flex-start"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--amber);fill:none;flex-shrink:0;margin-top:.1rem"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>All data is stored in your browser's localStorage. The same browser must be used to view the live site. For server-side storage, you would need a backend.</span></div>
+            </div>
+          </div>
+          <div id="apply-status" style="display:none;margin-top:1rem;padding:.85rem 1rem;border-radius:10px;font-size:.82rem;font-weight:600"></div>
+          <div style="margin-top:1.5rem;border-top:1px solid var(--line);padding-top:1.2rem">
+            <div class="form-section-title">Open Pages</div>
+            <div style="display:flex;gap:.65rem;flex-wrap:wrap;margin-top:.75rem">
+              <a href="index.html" target="_blank" class="btn-outline"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Homepage</a>
+              <a href="gca_blog.html" target="_blank" class="btn-outline"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Blog Page</a>
+              <a href="gca_services.html" target="_blank" class="btn-outline"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Services Page</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page-section" id="sec-settings">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-header"><div><div class="card-title">Contact Information</div><div class="card-sub">Update contact details shown across the site</div></div><button class="btn-primary" onclick="saveSettings()"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Save</button></div>
+        <div class="card-body">
+          <div class="form-row"><div><label class="form-label">Phone Number</label><input type="tel" id="s-phone" class="form-input" value="+91 9638038096"/></div><div><label class="form-label">WhatsApp Number</label><input type="tel" id="s-wa" class="form-input" value="+919638038096"/></div></div>
+          <div class="form-full"><label class="form-label">Email Address</label><input type="email" id="s-email" class="form-input" value="shahharshil1997@gmail.com"/></div>
+          <div class="form-full"><label class="form-label">Office Address</label><textarea id="s-addr" class="form-input" rows="2">3/51 Sundar Nagar H.Soc, Nr. Manish Hall, Naranpura, Ahmedabad – 380013</textarea></div>
+          <div class="form-row"><div><label class="form-label">Office Hours</label><input type="text" id="s-hours" class="form-input" value="Mon – Sat, 9:30 AM – 6:30 PM"/></div><div><label class="form-label">Admin Password</label><input type="password" id="s-pass" class="form-input" placeholder="Change password..."/></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Danger Zone</div></div>
+        <div class="card-body">
+          <div class="toggle-row"><div><div class="toggle-lbl">Clear All Blog Posts</div><div class="toggle-desc">Permanently delete all blog posts from localStorage</div></div><button class="btn-danger" onclick="if(confirm('Delete ALL blog posts?')){localStorage.removeItem('gca_blog_posts');loadBlogs();toast('All posts deleted','error')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>Clear Posts</button></div>
+          <div class="toggle-row"><div><div class="toggle-lbl">Clear All Images</div><div class="toggle-desc">Remove all uploaded images from localStorage</div></div><button class="btn-danger" onclick="if(confirm('Clear ALL images?')){['hero','about','blog1','blog2','blog3','og'].forEach(k=>localStorage.removeItem('gca_img_'+k));loadImages();toast('All images cleared','error')}"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>Clear Images</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOG MODAL -->
+<div class="modal-overlay" id="blog-modal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="blog-modal-title">New Blog Post</div><button class="modal-close" onclick="closeBlogModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body">
+      <input type="hidden" id="blog-edit-id"/>
+      <div class="form-section">
+        <div class="form-section-title">Post Details</div>
+        <div class="form-full"><label class="form-label">Title *</label><input type="text" id="b-title" class="form-input" placeholder="e.g. How to withdraw PF after leaving a job"/></div>
+        <div class="form-row">
+          <div><label class="form-label">Category</label><select id="b-cat" class="form-select"><option>PF Withdrawal</option><option>PF Transfer</option><option>KYC</option><option>Joint Declaration</option><option>ESIC</option><option>General</option></select></div>
+          <div><label class="form-label">Status</label><select id="b-status" class="form-select"><option value="published">Published</option><option value="draft">Draft</option></select></div>
+        </div>
+        <div class="form-row">
+          <div><label class="form-label">Read Time (minutes)</label><input type="number" id="b-rt" class="form-input" value="5" min="1" max="60"/></div>
+          <div><label class="form-label">Author</label><input type="text" id="b-author" class="form-input" value="GCA Team"/></div>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">Content</div>
+        <div class="form-full"><label class="form-label">Excerpt (shown on homepage)</label><textarea id="b-excerpt" class="form-input" rows="3" placeholder="Short 1-2 sentence summary of this post..."></textarea></div>
+        <div class="form-full"><label class="form-label">Full Content</label><textarea id="b-content" class="rich-area" rows="12" placeholder="Write the full blog post here...&#10;&#10;Use blank lines to separate paragraphs.&#10;Start a line with ## for a heading.&#10;Start a line with - for a bullet point."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeBlogModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveBlogPost()"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>Save Post</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><svg viewBox="0 0 24 24" id="toast-icon" style="width:16px;height:16px;stroke:#fff;fill:none"><polyline points="20 6 9 17 4 12"/></svg><span id="toast-msg">Saved successfully</span></div>
+
+<script>
+var PASS = 'gca2024admin';
+
+// ── AUTH ──────────────────────────────────────────────────
+function doLogin(){
+  var p=document.getElementById('login-pass').value;
+  var stored=localStorage.getItem('gca_admin_pass')||PASS;
+  if(p===stored){
+    document.getElementById('login-screen').style.display='none';
+    initAdmin();
+  }else{
+    document.getElementById('login-err').style.display='block';
+    document.getElementById('login-pass').value='';
+  }
+}
+function doLogout(){
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('login-pass').value='';
+}
+function initAdmin(){loadDash();loadBlogs();loadImages();loadPolicies();}
+
+// ── NAV ──────────────────────────────────────────────────
+function showPage(id,btn){
+  document.querySelectorAll('.page-section').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.sb-item').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('sec-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  var titles={dashboard:'Dashboard',blogs:'Blog Posts',images:'Site Images',privacy:'Privacy Policy',terms:'Terms of Service',settings:'Settings',apply:'Apply to Website'};
+  var subs={dashboard:'Overview of your content',blogs:'Create and manage blog posts',images:'Update website images',privacy:'Edit privacy policy',terms:'Edit terms of service',settings:'Configure site settings',apply:'Push all changes live to your website'};
+  document.getElementById('page-title').textContent=titles[id]||id;
+  document.getElementById('page-sub').textContent=subs[id]||'';
+  // Topbar actions
+  var acts=document.getElementById('topbar-actions');
+  acts.innerHTML='';
+  if(id==='blogs'){
+    acts.innerHTML='<button class="btn-primary" onclick="openBlogModal()"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#fff;fill:none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Post</button>';
+  }
+}
+
+// ── BLOG CRUD ─────────────────────────────────────────────
+function getPosts(){return JSON.parse(localStorage.getItem('gca_blog_posts')||'[]');}
+function savePosts(posts){localStorage.setItem('gca_blog_posts',JSON.stringify(posts));}
+
+function loadBlogs(){
+  var posts=getPosts().sort(function(a,b){return b.created-a.created;});
+  var tb=document.getElementById('blog-tbody');
+  if(!posts.length){
+    tb.innerHTML='<tr><td colspan="6"><div class="empty-state"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><p>No blog posts yet. Click <strong>New Post</strong> to create one.</p></div></td></tr>';
+    return;
+  }
+  tb.innerHTML=posts.map(function(p){
+    var d=new Date(p.created).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+    var badge=p.status==='published'?'<span class="badge badge-pub">Published</span>':'<span class="badge badge-draft">Draft</span>';
+    return '<tr><td><strong style="font-size:.82rem;color:var(--ink)">'+escHtml(p.title)+'</strong></td><td>'+escHtml(p.category)+'</td><td>'+badge+'</td><td>'+p.readTime+' min</td><td>'+d+'</td><td style="display:flex;gap:.45rem"><button class="btn-outline" onclick="editBlog(\''+p.id+'\')"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</button><button class="btn-danger" onclick="deleteBlog(\''+p.id+'\')"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Del</button></td></tr>';
+  }).join('');
+  loadDash();
+}
+
+function loadDash(){
+  var posts=getPosts();
+  var pub=posts.filter(function(p){return p.status==='published';});
+  var draft=posts.filter(function(p){return p.status==='draft';});
+  document.getElementById('dash-blogs').textContent=posts.length;
+  document.getElementById('dash-pub').textContent=pub.length;
+  document.getElementById('dash-draft').textContent=draft.length;
+  var recent=posts.slice(-5).reverse();
+  var tb=document.getElementById('dash-tbody');
+  if(!recent.length){tb.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.8rem">No posts yet.</td></tr>';return;}
+  tb.innerHTML=recent.map(function(p){
+    var d=new Date(p.created).toLocaleDateString('en-IN',{month:'short',year:'numeric'});
+    var badge=p.status==='published'?'<span class="badge badge-pub">Published</span>':'<span class="badge badge-draft">Draft</span>';
+    return '<tr><td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.8rem">'+escHtml(p.title)+'</td><td style="font-size:.78rem">'+escHtml(p.category)+'</td><td>'+badge+'</td><td style="font-size:.78rem">'+d+'</td></tr>';
+  }).join('');
+}
+
+function openBlogModal(){ document.getElementById('blog-modal').classList.add('open'); document.getElementById('blog-modal-title').textContent='New Blog Post'; clearBlogForm(); }
+function closeBlogModal(){ document.getElementById('blog-modal').classList.remove('open'); }
+function clearBlogForm(){ ['b-title','b-excerpt','b-content','b-author'].forEach(function(id){document.getElementById(id).value=id==='b-author'?'GCA Team':'';});document.getElementById('b-rt').value='5';document.getElementById('b-cat').value='PF Withdrawal';document.getElementById('b-status').value='published';document.getElementById('blog-edit-id').value=''; }
+
+function editBlog(id){
+  var posts=getPosts();
+  var p=posts.find(function(x){return x.id===id;});
+  if(!p)return;
+  document.getElementById('blog-modal-title').textContent='Edit Blog Post';
+  document.getElementById('blog-edit-id').value=id;
+  document.getElementById('b-title').value=p.title;
+  document.getElementById('b-cat').value=p.category;
+  document.getElementById('b-status').value=p.status;
+  document.getElementById('b-rt').value=p.readTime;
+  document.getElementById('b-author').value=p.author||'GCA Team';
+  document.getElementById('b-excerpt').value=p.excerpt||'';
+  document.getElementById('b-content').value=p.content||'';
+  document.getElementById('blog-modal').classList.add('open');
+}
+
+function saveBlogPost(){
+  var title=document.getElementById('b-title').value.trim();
+  if(!title){alert('Please enter a title');return;}
+  var editId=document.getElementById('blog-edit-id').value;
+  var posts=getPosts();
+  var post={
+    id:editId||(Date.now().toString()),
+    title:title,
+    category:document.getElementById('b-cat').value,
+    status:document.getElementById('b-status').value,
+    readTime:parseInt(document.getElementById('b-rt').value)||5,
+    author:document.getElementById('b-author').value||'GCA Team',
+    excerpt:document.getElementById('b-excerpt').value.trim(),
+    content:document.getElementById('b-content').value.trim(),
+    created:editId?(posts.find(function(p){return p.id===editId;})||{}).created||Date.now():Date.now(),
+    updated:Date.now()
+  };
+  if(editId){
+    var idx=posts.findIndex(function(p){return p.id===editId;});
+    if(idx>=0)posts[idx]=post;
+  }else{
+    posts.push(post);
+  }
+  savePosts(posts);
+  loadBlogs();
+  closeBlogModal();
+  toast('Post saved successfully','success');
+}
+
+function deleteBlog(id){
+  if(!confirm('Delete this post?'))return;
+  var posts=getPosts().filter(function(p){return p.id!==id;});
+  savePosts(posts);
+  loadBlogs();
+  toast('Post deleted','error');
+}
+
+// ── IMAGES ──────────────────────────────────────────────
+function imgUpload(input,key){
+  var file=input.files[0];
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    localStorage.setItem('gca_img_'+key,e.target.result);
+    var img=document.getElementById('img-'+key);
+    img.src=e.target.result;
+    img.classList.add('loaded');
+    toast('Image uploaded — preview shown above','success');
+  };
+  reader.readAsDataURL(file);
+}
+function loadImages(){
+  ['hero','about','blog1','blog2','blog3','og'].forEach(function(k){
+    var data=localStorage.getItem('gca_img_'+k);
+    if(data){var img=document.getElementById('img-'+k);img.src=data;img.classList.add('loaded');}
+  });
+}
+
+// ── POLICIES ──────────────────────────────────────────────
+function loadPolicies(){
+  var pv=JSON.parse(localStorage.getItem('gca_privacy')||'{}');
+  var tv=JSON.parse(localStorage.getItem('gca_terms')||'{}');
+  document.getElementById('privacy-content').value=pv.content||'## Privacy Policy\n\nThis Privacy Policy describes how Girish Chaudhary Associates collects, uses and protects your personal information.\n\n## Information We Collect\n\nWe collect your name, phone number, email and EPF-related details when you contact us for assistance.\n\n## How We Use Your Information\n\nYour information is used solely to provide EPF and ESIC consultation services. We do not sell or share your data with third parties.\n\n## Data Security\n\nWe employ industry-standard security measures to protect your personal information from unauthorised access.\n\n## Contact Us\n\nFor any privacy-related queries, contact us at shahharshil1997@gmail.com or +91 9638038096.';
+  document.getElementById('privacy-date').value=pv.date||new Date().toISOString().split('T')[0];
+  document.getElementById('terms-content').value=tv.content||'## Terms of Service\n\nBy using the services of Girish Chaudhary Associates, you agree to the following terms.\n\n## Services\n\nGCA provides EPF consultation, withdrawal assistance, transfer support and related advisory services.\n\n## Client Responsibilities\n\nClients are responsible for providing accurate and complete documentation required for EPF processing.\n\n## Fees and Payments\n\nService fees are discussed and agreed upon before commencement of any work. All fees are non-refundable once work has begun.\n\n## Limitation of Liability\n\nGCA shall not be liable for delays caused by EPFO systems, employer non-cooperation, or regulatory changes.\n\n## Contact\n\nFor queries about these terms, contact shahharshil1997@gmail.com.';
+  document.getElementById('terms-date').value=tv.date||new Date().toISOString().split('T')[0];
+}
+
+function savePolicy(type){
+  var content=document.getElementById(type+'-content').value;
+  var date=document.getElementById(type+'-date').value;
+  localStorage.setItem('gca_'+type,JSON.stringify({content:content,date:date,updated:Date.now()}));
+  toast(type==='privacy'?'Privacy Policy saved':'Terms of Service saved','success');
+}
+
+// ── SETTINGS ──────────────────────────────────────────────
+function saveSettings(){
+  var newPass=document.getElementById('s-pass').value;
+  if(newPass){localStorage.setItem('gca_admin_pass',newPass);PASS=newPass;}
+  toast('Settings saved','success');
+}
+
+// ── UTILS ──────────────────────────────────────────────────
+function escHtml(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toast(msg,type){
+  var t=document.getElementById('toast');
+  t.className='toast show '+(type||'success');
+  document.getElementById('toast-msg').textContent=msg;
+  setTimeout(function(){t.classList.remove('show');},3000);
+}
+// Close modal on overlay click
+document.getElementById('blog-modal').addEventListener('click',function(e){if(e.target===this)closeBlogModal();});
+// Check if already logged in
+if(localStorage.getItem('gca_admin_session')==='1'){
+  document.getElementById('login-screen').style.display='none';
+  initAdmin();
+}
+document.getElementById('login-btn')||document.querySelector('.login-btn').addEventListener('click',function(){localStorage.setItem('gca_admin_session','1');});
+// Store session on login
+var origLogin=doLogin;
+doLogin=function(){
+  var p=document.getElementById('login-pass').value;
+  var stored=localStorage.getItem('gca_admin_pass')||PASS;
+  if(p===stored){localStorage.setItem('gca_admin_session','1');}
+  origLogin();
+};
+var origLogout=doLogout;
+doLogout=function(){localStorage.removeItem('gca_admin_session');origLogout();};
+
+// ── APPLY ALL CHANGES ─────────────────────────────────────
+function applyAllChanges(){
+  var posts=getPosts();
+  var imgs=['hero','about','blog1','blog2','blog3','og'].filter(function(k){return localStorage.getItem('gca_img_'+k);});
+  var pv=localStorage.getItem('gca_privacy')?'✓':'—';
+  var tv=localStorage.getItem('gca_terms')?'✓':'—';
+
+  // Count
+  document.getElementById('apply-blogs-count').textContent=posts.filter(function(p){return p.status==='published';}).length;
+  document.getElementById('apply-imgs-count').textContent=imgs.length+' / 6';
+
+  // Mark last apply time
+  localStorage.setItem('gca_last_apply',new Date().toLocaleString('en-IN'));
+
+  // Show status
+  var s=document.getElementById('apply-status');
+  s.style.display='block';
+  s.style.background='#D1FAE5';s.style.color='#065F46';s.style.border='1px solid #A7F3D0';
+  s.innerHTML='✓ Applied at '+localStorage.getItem('gca_last_apply')+'<br>'+
+    posts.filter(function(p){return p.status==="published";}).length+' published posts &nbsp;·&nbsp; '+
+    imgs.length+' images &nbsp;·&nbsp; Privacy: '+pv+' &nbsp;·&nbsp; Terms: '+tv+'<br><br>'+
+    '<strong>Open the pages below</strong> to see your changes (they read directly from localStorage).';
+  toast('All changes applied successfully','success');
+}
+function updateApplyCounts(){
+  var posts=getPosts();
+  var imgs=['hero','about','blog1','blog2','blog3','og'].filter(function(k){return localStorage.getItem('gca_img_'+k);});
+  var el=document.getElementById('apply-blogs-count');
+  var el2=document.getElementById('apply-imgs-count');
+  if(el)el.textContent=posts.filter(function(p){return p.status==='published';}).length;
+  if(el2)el2.textContent=imgs.length+' / 6';
+}
+// Update counts when switching to apply page
+var _origShowPage=showPage;
+showPage=function(id,btn){
+  _origShowPage(id,btn);
+  if(id==='apply')updateApplyCounts();
+};
+</script>
+</body>
+</html>
